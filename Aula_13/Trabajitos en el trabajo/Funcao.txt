@@ -1,0 +1,27 @@
+short mediaMovel(short *sample, short *coef, int NSAMPLES)
+{	 
+	int n, y;
+	short saida;
+  	//zera saída do filtro
+        y=0;
+
+        //lê dado do arquivo
+        n_amost = fread(&entrada,sizeof(short),1,in_file);
+				sample[0] = entrada;
+
+        //Convolução e acumulação
+        for (n=0; n<NSAMPLES; n++)
+                {
+                y += coef[n]*sample[n];
+                }
+
+        //desloca amostra
+        for (n=NSAMPLES-1; n>0; n--)
+                {
+                sample[n]=sample[n-1];
+                }
+
+				
+	saida = y >> 15;
+	return saida;
+}
